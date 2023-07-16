@@ -36,6 +36,44 @@ npm install --save @gmjs/value-transformers
 
 ## Usage
 
+### Notes on Usage and Examples
+
+Transformers that produce sequences of values almost always return iterables. You can use the spread operator to convert them to arrays, or you can use the `toArray()` transformer. This is the reason why you will see the `console.log([...output])` pattern in most examples below.
+
+Instead of spread operator, you could use something like this:
+
+```ts
+import { applyFn } from '@gmjs/apply-function';
+import { compose } from '@gmjs/compose-function';
+import { map, toArray } from '@gmjs/value-transformers';
+
+const input = [1, 2, 3];
+const output = applyFn(
+  input,
+  compose(
+    map((v: number) => v + 2),
+    toArray(),
+  ),
+);
+console.log(output); // no need for spread operator
+// [3, 4, 5]
+```
+
+The above is obviously a contrived example (as are most in this document). In reality, for a simple mapping like above you would probably do something like this:
+
+```ts
+import { map } from '@gmjs/value-transformers';
+
+const input = [1, 2, 3];
+const output = input.map((v: number) => v + 2);
+console.log(output); // this is a regular javascript `map` method, no need for a spread operator
+// [3, 4, 5]
+```
+
+However, for more complicated transformations, it will be much easier to use transformers.
+
+### Usage Examples
+
 Transformers can be used directly, like this:
 
 ```ts
@@ -43,9 +81,12 @@ import { map } from '@gmjs/value-transformers';
 
 const input = [1, 2, 3];
 const output = map((v: number) => v + 2)(input);
-console.log(output);
+// spread operator is used to convert iterable to array, you can also use toArray() transformer
+console.log([...output]);
 // [3, 4, 5]
 ```
+
+Iterable transformers
 
 You can store the created transformer in a variable and use it later:
 
@@ -55,7 +96,7 @@ import { map } from '@gmjs/value-transformers';
 const add2 = map((v: number) => v + 2);
 const input = [1, 2, 3];
 const output = add2(input);
-console.log(output);
+console.log([...output]);
 // [3, 4, 5]
 ```
 
@@ -70,7 +111,7 @@ const output = applyFn(
   input,
   map((v: number) => v + 2),
 );
-console.log(output);
+console.log([...output]);
 // [3, 4, 5]
 ```
 
@@ -89,7 +130,7 @@ const output = applyFn(
     filter((v: number) => v % 2 === 0),
   ),
 );
-console.log(output);
+console.log([...output]);
 // [4, 6]
 ```
 
@@ -122,7 +163,7 @@ const output = applyFn(
     take(5),
   ),
 );
-console.log(output);
+console.log([...output]);
 // [0, 4, 16, 36, 64]
 ```
 
@@ -136,7 +177,7 @@ Concatenates multiple iterables into one.
 const input = [1, 2, 3];
 const other = [4, 5, 6];
 const output = applyFn(input, concat(other));
-console.log(output);
+console.log([...output]);
 // [1, 2, 3, 4, 5, 6]
 ```
 
@@ -149,7 +190,7 @@ Works out of the box if iterable items are primitive values like numbers, string
 ```ts
 const input = [1, 1, 3, 1, 2, 3];
 const output = applyFn(input, distinct());
-console.log(output);
+console.log([...output]);
 // [1, 3, 2]
 ```
 
@@ -168,7 +209,7 @@ const input = [
 
 // no distinctBy is used
 const output = applyFn(input, distinct());
-console.log(output);
+console.log([...output]);
 // [
 //   { id: 1, name: 'John' },
 //   { id: 2, name: 'Jane' },
@@ -192,7 +233,7 @@ const output = applyFn(
   input,
   distinct((v) => v.id),
 );
-console.log(output);
+console.log([...output]);
 // [
 //   { id: 1, name: 'John' },
 //   { id: 2, name: 'Jane' },
@@ -214,7 +255,7 @@ const output = applyFn(
   input,
   distinct((v) => `${v.firstName}#${v.lastName}`),
 );
-console.log(output);
+console.log([...output]);
 // [
 //   { firstName: 'John', lastName: 'Doe' },
 //   { firstName: 'Jane', lastName: 'Doe' },
@@ -234,7 +275,7 @@ const output = applyFn(
   input,
   distinct((v) => Math.floor(v / 10)),
 );
-console.log(output);
+console.log([...output]);
 // [1, 22, 14]
 ```
 
@@ -245,7 +286,7 @@ Returns just the duplicate values from the input iterable.
 ```ts
 const input = [1, 3, 3, 2, 1];
 const output = applyFn(input, duplicates());
-console.log(output);
+console.log([...output]);
 // [3, 1]
 ```
 
@@ -258,7 +299,7 @@ In yet other words, the resulting iterable will contain exacty one less occurenc
 ```ts
 const input = [1, 2, 1, 3, 1, 3, 1];
 const output = applyFn(input, duplicates());
-console.log(output);
+console.log([...output]);
 // [1, 1, 3, 1]
 ```
 
@@ -267,7 +308,7 @@ If you want to get rid of duplicates in the resulting iterable, you can use `dis
 ```ts
 const input = [1, 2, 1, 3, 1, 3, 1];
 const output = applyFn(input, duplicates(), distinct());
-console.log(output);
+console.log([...output]);
 // [1, 3]
 ```
 
@@ -286,7 +327,7 @@ const output = applyFn(
   input,
   duplicates((v) => v.id),
 );
-console.log(output);
+console.log([...output]);
 // [
 //   { id: 1, name: 'John' },
 //   { id: 2, name: 'Jane' },
@@ -301,7 +342,7 @@ Filters out nullish values from the input iterable.
 const input: readonly (number | null | undefined)[] = [1, 2, null, 3, undefined, 4, 5];
 
 const output = applyFn(input, filterOutNullish());
-console.log(output);
+console.log([...output]);
 // [1, 2, 3, 4, 5]
 // type of 'output' is readonly number[]
 ```
@@ -316,7 +357,7 @@ const output = applyFn(
   input,
   filter((v: number) => v % 2 === 0),
 );
-console.log(output);
+console.log([...output]);
 // [2, 4, 6]
 ```
 
@@ -332,7 +373,7 @@ const output = applyFn(
   input,
   flatMap((v: number) => [`${v}a`, `${v}b`]),
 );
-console.log(output);
+console.log([...output]);
 // ['1a', '1b', '2a', '2b', '3a', '3b']
 ```
 
@@ -347,7 +388,7 @@ const input = [
   [7, 8, 9],
 ];
 const output = applyFn(input, flatten());
-console.log(output);
+console.log([...output]);
 // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
@@ -367,7 +408,7 @@ const output = applyFn(
   input,
   groupBy((v) => v.id),
 );
-console.log(output);
+console.log([...output]);
 // Map(3) {
 //   1, [ { id: 1, name: 'John' }, { id: 1, name: 'Jack' } ],
 //   2, [ { id: 2, name: 'Jane' }, { id: 2, name: 'Joe' } ],
@@ -382,7 +423,7 @@ Transformer that returns just the indexes of the input iterable.
 ```ts
 const input = [1, 2, 3];
 const output = applyFn(input, indexes());
-console.log(output);
+console.log([...output]);
 // [0, 1, 2]
 ```
 
@@ -399,7 +440,7 @@ const input = [
   ['c', 3],
 ];
 const output = applyFn(input, keys());
-console.log(output);
+console.log([...output]);
 // ['a', 'b', 'c']
 ```
 
@@ -410,7 +451,7 @@ const input = new Map([
   ['c', 3],
 ]);
 const output = applyFn(input, keys());
-console.log(output);
+console.log([...output]);
 // ['a', 'b', 'c']
 ```
 
@@ -421,7 +462,7 @@ const input = {
   c: 3,
 };
 const output = applyFn(Object.entries(input), keys());
-console.log(output);
+console.log([...output]);
 // ['a', 'b', 'c']
 ```
 
@@ -435,7 +476,7 @@ const output = applyFn(
   input,
   map((v: number) => v * v),
 );
-console.log(output);
+console.log([...output]);
 // [1, 4, 9]
 ```
 
@@ -446,7 +487,7 @@ Reverses the input iterable.
 ```ts
 const input = [1, 2, 3, 4, 5];
 const output = applyFn(input, reverse());
-console.log(output);
+console.log([...output]);
 // [5, 4, 3, 2, 1]
 ```
 
@@ -457,7 +498,7 @@ Skips first `count` values from the input iterable.
 ```ts
 const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const output = applyFn(input, skip(5));
-console.log(output);
+console.log([...output]);
 // [6, 7, 8, 9, 10]
 ```
 
@@ -471,7 +512,7 @@ const output = applyFn(
   input,
   sort((a: number, b: number) => a - b),
 );
-console.log(output);
+console.log([...output]);
 // [1, 2, 3, 4, 5]
 ```
 
@@ -482,7 +523,7 @@ Takes first `count` values from the input iterable.
 ```ts
 const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const output = applyFn(input, take(5));
-console.log(output);
+console.log([...output]);
 // [1, 2, 3, 4, 5]
 ```
 
@@ -505,7 +546,7 @@ const output = applyFn(
 // Value 3
 // Value 4
 // Value 5
-console.log(output);
+console.log([...output]);
 // [1, 2, 3, 4, 5]
 ```
 
@@ -521,7 +562,7 @@ const generator = function* (): Generator<number> {
 };
 
 const output = applyFn(generator(), toArray());
-console.log(output);
+console.log([...output]);
 // [1, 2, 3]
 ```
 
@@ -536,7 +577,7 @@ const input = [
   ['c', 3],
 ];
 const output = applyFn(input, toMap());
-console.log(output);
+console.log([...output]);
 // Map(3) {
 //   'a': 1,
 //   'b': 2,
@@ -551,7 +592,7 @@ Converts an iterable into a `Set`.
 ```ts
 const input = [1, 2, 3];
 const output = applyFn(input, toSet());
-console.log(output);
+console.log([...output]);
 // Set(3) { 1, 2, 3 }
 ```
 
@@ -568,7 +609,7 @@ const input = [
   ['c', 3],
 ];
 const output = applyFn(input, values());
-console.log(output);
+console.log([...output]);
 // [1, 2, 3]
 ```
 
@@ -583,7 +624,7 @@ Tuple types are inferred from the type of item of the input iterable and the typ
 ```ts
 const input = [1, 2, 3];
 const output = applyFn(input, zipWith(['a', 'b', 'c']));
-console.log(output);
+console.log([...output]);
 // [
 //   [1, 'a'],
 //   [2, 'b'],
@@ -594,7 +635,7 @@ console.log(output);
 ```ts
 const input = [1, 2, 3];
 const output = applyFn(input, zipWith(['a', 'b', 'c'], [true, false, true]));
-console.log(output);
+console.log([...output]);
 // [
 //   [1, 'a', true],
 //   [2, 'b', false],
@@ -671,7 +712,7 @@ Calculates the cumulative sum list of all items of the numeric input iterable.
 ```ts
 const input = [1, 2, 3, 4, 5];
 const output = applyFn(input, cumSum());
-console.log(output);
+console.log([...output]);
 // [1, 3, 6, 10, 15]
 ```
 
@@ -685,7 +726,7 @@ const output = applyFn(
   input,
   cumSumBy((v: { value: number }) => v.value),
 );
-console.log(output);
+console.log([...output]);
 // [1, 3, 6, 10, 15]
 ```
 
@@ -721,7 +762,7 @@ Calculates the cumulative minimum list of all items of the numeric input iterabl
 ```ts
 const input = [2, 3, 1, 5, 4];
 const output = applyFn(input, cumMin());
-console.log(output);
+console.log([...output]);
 // [2, 2, 1, 1, 1]
 ```
 
@@ -735,7 +776,7 @@ const output = applyFn(
   input,
   cumMinBy((v: { value: number }) => v.value),
 );
-console.log(output);
+console.log([...output]);
 // [2, 2, 1, 1, 1]
 ```
 
@@ -785,7 +826,7 @@ const output = applyFn(
   input,
   cumMaxBy((v: { value: number }) => v.value),
 );
-console.log(output);
+console.log([...output]);
 // [2, 3, 3, 5, 5]
 ```
 
