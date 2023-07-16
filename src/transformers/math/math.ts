@@ -1,6 +1,6 @@
 import { Fn1 } from '@gmjs/generic-types';
 import { compose } from '@gmjs/compose-function';
-import { map } from './iterable';
+import { map } from '../iterable';
 
 export function sum(): Fn1<Iterable<number>, number> {
   return (input: Iterable<number>) => {

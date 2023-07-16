@@ -1,5 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
-import { Fn1 } from '@gmjs/generic-types';
+import { describe } from '@jest/globals';
 import {
   sum,
   cumSum,
@@ -16,72 +15,17 @@ import {
   cumMax,
   cumMaxBy,
 } from './math';
-import { getArrayResult } from './test-util';
+import {
+  MathExampleSimple,
+  testSimpleExamples,
+  toObjectExamplesSimple,
+  VALUE_SELECTOR,
+  MathExampleCum,
+  testCumExamples,
+  toObjectExamplesCum,
+} from './test-util-math';
 
 describe('math', () => {
-  interface MathExampleItem {
-    readonly value: number;
-  }
-
-  type MathItemType = number | MathExampleItem;
-
-  interface MathExampleBase<T extends MathItemType> {
-    readonly input: readonly T[];
-  }
-
-  interface MathExampleSimple<T extends MathItemType>
-    extends MathExampleBase<T> {
-    readonly expected: number;
-  }
-
-  interface MathExampleCum<T extends MathItemType> extends MathExampleBase<T> {
-    readonly expected: readonly number[];
-  }
-
-  const VALUE_SELECTOR = (item: MathExampleItem): number => item.value;
-
-  function toObjectExamplesSimple(
-    examples: readonly MathExampleSimple<number>[],
-  ): readonly MathExampleSimple<MathExampleItem>[] {
-    return examples.map((example) => ({
-      input: example.input.map((item) => ({ value: item })),
-      expected: example.expected,
-    }));
-  }
-
-  function toObjectExamplesCum(
-    examples: readonly MathExampleCum<number>[],
-  ): readonly MathExampleCum<MathExampleItem>[] {
-    return examples.map((example) => ({
-      input: example.input.map((item) => ({ value: item })),
-      expected: example.expected,
-    }));
-  }
-
-  function testSimpleExamples<T extends MathItemType>(
-    examples: readonly MathExampleSimple<T>[],
-    transformer: Fn1<Iterable<T>, number>,
-  ): void {
-    for (const example of examples) {
-      it(JSON.stringify(example), () => {
-        const actual = transformer(example.input);
-        expect(actual).toEqual(example.expected);
-      });
-    }
-  }
-
-  function testCumExamples<T extends MathItemType>(
-    examples: readonly MathExampleCum<T>[],
-    transformer: Fn1<Iterable<T>, Iterable<number>>,
-  ): void {
-    for (const example of examples) {
-      it(JSON.stringify(example), () => {
-        const actual = getArrayResult(example.input, transformer);
-        expect(actual).toEqual(example.expected);
-      });
-    }
-  }
-
   describe('sum()', () => {
     const EXAMPLES: readonly MathExampleSimple<number>[] = [
       {

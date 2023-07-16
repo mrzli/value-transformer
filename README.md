@@ -488,7 +488,9 @@ console.log(output);
 
 #### `tapPerItem`
 
-Runs the `tap` function for each item of the input iterable, and then returns the input iterable unchanged.
+Runs the function specified by `action` parameter for each item of the input iterable, and then returns the input iterable unchanged.
+
+This can be used for logging iterable items for example, or performing any other side effects.
 
 ```ts
 const input = [1, 2, 3, 4, 5];
@@ -608,4 +610,206 @@ In simpler terms, if we assume all iterables are arrays, all arrays must have th
 const input = [1, 2, 3];
 // the following will throw an error
 const output = applyFn(input, zipWith(['a', 'b']));
+```
+
+### Single
+
+This section will describe transformers used for transforming single (i.e. non-iterable) values.
+
+#### `tap`
+
+Runs the function specified by `action` parameter for the input value, and then returns the input value unchanged.
+
+This can be used for logging the input value for example, or performing any other side effects.
+
+```ts
+const input = 1;
+const output = applyFn(
+  input,
+  tap((v: number) => {
+    console.log(`Value: ${v}`);
+  }),
+);
+// Value 1
+console.log(output);
+// 1
+```
+
+### Math
+
+This section will describe transformers used for performing mathematical or statistical operations on iterables.
+
+#### `sum`
+
+Calculates the sum of all items of the numeric input iterable.
+
+```ts
+const input = [1, 2, 3, 4, 5];
+const output = applyFn(input, sum());
+console.log(output);
+// 15
+```
+
+#### `sumBy`
+
+Calculates the sum of all items of the input iterable, using the function specified by `selector` parameter to extract the numeric value from each item.
+
+```ts
+const input = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }];
+const output = applyFn(
+  input,
+  sumBy((v: { value: number }) => v.value),
+);
+console.log(output);
+// 15
+```
+
+#### `cumSum`
+
+Calculates the cumulative sum list of all items of the numeric input iterable.
+
+```ts
+const input = [1, 2, 3, 4, 5];
+const output = applyFn(input, cumSum());
+console.log(output);
+// [1, 3, 6, 10, 15]
+```
+
+#### `cumSumBy`
+
+Calculates the cumulative sum list of all items of the input iterable, using the function specified by `selector` parameter to extract the numeric value from each item.
+
+```ts
+const input = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }];
+const output = applyFn(
+  input,
+  cumSumBy((v: { value: number }) => v.value),
+);
+console.log(output);
+// [1, 3, 6, 10, 15]
+```
+
+#### `min`
+
+Calculates the minimum value of all items of the numeric input iterable.
+
+```ts
+const input = [2, 3, 1, 5, 4];
+const output = applyFn(input, min());
+console.log(output);
+// 1
+```
+
+#### `minBy`
+
+Calculates the minimum value of all items of the input iterable, using the function specified by `selector` parameter to extract the numeric value from each item.
+
+```ts
+const input = [{ value: 2 }, { value: 3 }, { value: 1 }, { value: 5 }, { value: 4 }];
+const output = applyFn(
+  input,
+  minBy((v: { value: number }) => v.value),
+);
+console.log(output);
+// 1
+```
+
+#### `cumMin`
+
+Calculates the cumulative minimum list of all items of the numeric input iterable.
+
+```ts
+const input = [2, 3, 1, 5, 4];
+const output = applyFn(input, cumMin());
+console.log(output);
+// [2, 2, 1, 1, 1]
+```
+
+#### `cumMinBy`
+
+Calculates the cumulative minimum list of all items of the input iterable, using the function specified by `selector` parameter to extract the numeric value from each item.
+
+```ts
+const input = [{ value: 2 }, { value: 3 }, { value: 1 }, { value: 5 }, { value: 4 }];
+const output = applyFn(
+  input,
+  cumMinBy((v: { value: number }) => v.value),
+);
+console.log(output);
+// [2, 2, 1, 1, 1]
+```
+
+#### `max`
+
+Calculates the maximum value of all items of the numeric input iterable.
+
+```ts
+const input = [2, 3, 1, 5, 4];
+const output = applyFn(input, max());
+console.log(output);
+// 5
+```
+
+#### `maxBy`
+
+Calculates the maximum value of all items of the input iterable, using the function specified by `selector` parameter to extract the numeric value from each item.
+
+```ts
+const input = [{ value: 2 }, { value: 3 }, { value: 1 }, { value: 5 }, { value: 4 }];
+const output = applyFn(
+  input,
+  maxBy((v: { value: number }) => v.value),
+);
+console.log(output);
+// 5
+```
+
+#### `cumMax`
+
+Calculates the cumulative maximum list of all items of the numeric input iterable.
+
+```ts
+const input = [2, 3, 1, 5, 4];
+const output = applyFn(input, cumMax());
+console.log(output);
+// [2, 3, 3, 5, 5]
+```
+
+#### `cumMaxBy`
+
+Calculates the cumulative maximum list of all items of the input iterable, using the function specified by `selector` parameter to extract the numeric value from each item.
+
+```ts
+const input = [{ value: 2 }, { value: 3 }, { value: 1 }, { value: 5 }, { value: 4 }];
+const output = applyFn(
+  input,
+  cumMaxBy((v: { value: number }) => v.value),
+);
+console.log(output);
+// [2, 3, 3, 5, 5]
+```
+
+#### `mean`
+
+Calculates the mean value of all items of the numeric input iterable.
+
+```ts
+const input = [2, 3, 1, 5, 4];
+const output = applyFn(input, mean());
+console.log(output);
+// 3
+```
+
+#### `meanBy`
+
+Calculates the mean value of all items of the input iterable, using the function specified by `selector` parameter to extract the numeric value from each item.
+
+```ts
+const input = [{ value: 2 }, { value: 3 }, { value: 1 }, { value: 5 }, { value: 4 }];
+const output = applyFn(
+  input,
+  meanBy((v: { value: number }) => v.value),
+);
+console.log(output);
+// 3
 ```
