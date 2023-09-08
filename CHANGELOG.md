@@ -4,6 +4,12 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Switch to pnpm.
+- Update dependencies.
+- Small updates related to tsconfig changes.
+
 ## [0.0.2] - 2023-07-16
 
 ### Changed

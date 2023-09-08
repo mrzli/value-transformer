@@ -41,7 +41,9 @@ export function min(): Fn1<Iterable<number>, number> {
       return 0;
     }
 
-    return array.reduce((m, item) => Math.min(m, item), array[0]);
+    const first = array[0] ?? 0;
+
+    return array.reduce((m, item) => Math.min(m, item), first);
   };
 }
 
@@ -74,7 +76,9 @@ export function max(): Fn1<Iterable<number>, number> {
       return 0;
     }
 
-    return array.reduce((m, item) => Math.max(m, item), array[0]);
+    const first = array[0] ?? 0;
+
+    return array.reduce((m, item) => Math.max(m, item), first);
   };
 }
 
