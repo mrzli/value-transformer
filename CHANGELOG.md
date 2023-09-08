@@ -4,11 +4,17 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.3] - 2023-09-08
+
 ### Changed
 
 - Switch to pnpm.
 - Update dependencies.
 - Small updates related to tsconfig changes.
+
+### Added
+
+- Add `first` and `last` transformers.
 
 ## [0.0.2] - 2023-07-16
 

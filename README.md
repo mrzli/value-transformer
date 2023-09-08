@@ -361,6 +361,17 @@ console.log([...output]);
 // [2, 4, 6]
 ```
 
+#### `first`
+
+Gets the first item of the input iterable. If the input iterable is empty, an error will be thrown.
+
+```ts
+const input = [1, 2, 3];
+const output = applyFn(input, first());
+console.log(output);
+// 1
+```
+
 #### `flatMap`
 
 Maps each value of the input iterable using mapper function provided by `mapper` parameter, and then flattens the result.
@@ -464,6 +475,17 @@ const input = {
 const output = applyFn(Object.entries(input), keys());
 console.log([...output]);
 // ['a', 'b', 'c']
+```
+
+#### `last`
+
+Gets the last item of the input iterable. If the input iterable is empty, an error will be thrown.
+
+```ts
+const input = [1, 2, 3];
+const output = applyFn(input, last());
+console.log(output);
+// 3
 ```
 
 #### `map`
