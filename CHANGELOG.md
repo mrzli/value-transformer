@@ -4,6 +4,12 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.4] - 2023-09-09
+
+### Fixed
+
+- Fix signature for `take` and `skip` transformers to consume `Iterable<T>` instead of just `Iterable<number>`.
+
 ## [0.0.3] - 2023-09-08
 
 ### Changed
