@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import { describe, expect, it } from '@jest/globals';
 import { aggregate } from './aggregate';
 import { getArrayResult } from '../../test-util';

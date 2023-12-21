@@ -4,6 +4,16 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.5] - 2023-12-21
+
+### Changed
+
+- Update dependencies to latest versions.
+
+### Added
+
+- Add `toMapBy` transformers.
+
 ## [0.0.4] - 2023-09-09
 
 ### Fixed

@@ -584,7 +584,7 @@ const generator = function* (): Generator<number> {
 };
 
 const output = applyFn(generator(), toArray());
-console.log([...output]);
+console.log(output);
 // [1, 2, 3]
 ```
 
@@ -599,11 +599,39 @@ const input = [
   ['c', 3],
 ];
 const output = applyFn(input, toMap());
-console.log([...output]);
+console.log(output);
 // Map(3) {
 //   'a': 1,
 //   'b': 2,
 //   'c': 3
+// }
+```
+
+#### `toMapBy`
+
+Converts an iterable to a map, where `keySelector` function to determine the key of each item, and the item itself is the value.
+
+Similar to `groupBy` transformer, but the resulting map will contain only one item per key, not an array of items.
+
+If there are multiple items with the same key, the last item will overwrite the previous ones, and will be the one present in the resulting map.
+
+```ts
+const input = [
+  { id: 1, name: 'John' },
+  { id: 2, name: 'Jane' },
+  { id: 1, name: 'Jack' },
+  { id: 3, name: 'Jill' },
+  { id: 2, name: 'Joe' },
+];
+const output = applyFn(
+  input,
+  toMapBy((v) => v.id),
+);
+console.log(output);
+// Map(3) {
+//   1, { id: 1, name: 'Jack' },
+//   2, { id: 2, name: 'Joe' },
+//   3, { id: 3, name: 'Jill' }
 // }
 ```
 
@@ -614,7 +642,7 @@ Converts an iterable into a `Set`.
 ```ts
 const input = [1, 2, 3];
 const output = applyFn(input, toSet());
-console.log([...output]);
+console.log(output);
 // Set(3) { 1, 2, 3 }
 ```
 
