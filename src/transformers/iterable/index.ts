@@ -1,5 +1,6 @@
 export * from './potential';
 export * from './concat';
+export * from './count';
 export * from './distinct';
 export * from './duplicates';
 export * from './filter-out-nullish';

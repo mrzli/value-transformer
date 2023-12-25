@@ -181,6 +181,22 @@ console.log([...output]);
 // [1, 2, 3, 4, 5, 6]
 ```
 
+#### `count`
+
+Counts the number of items in the input iterable which satisfy the `predicate` parameter.
+
+`predicate` parameter is optional. If it is not provided, the `count` transformer will simply return the total number of items in the input iterable.
+
+```ts
+const input = [1, 2, 3, 4, 5];
+const output = applyFn(
+  input,
+  count((v: number) => v % 2 === 0),
+);
+console.log(output);
+2;
+```
+
 #### `distinct`
 
 Filters out duplicate values from the input iterable.
