@@ -350,6 +350,20 @@ console.log([...output]);
 // ]
 ```
 
+#### `filter`
+
+Filters the input iterable using predicate function provided by `predicate` parameter.
+
+```ts
+const input = [1, 2, 3, 4, 5, 6];
+const output = applyFn(
+  input,
+  filter((v: number) => v % 2 === 0),
+);
+console.log([...output]);
+// [2, 4, 6]
+```
+
 #### `filterOutNullish`
 
 Filters out nullish values from the input iterable.
@@ -363,18 +377,34 @@ console.log([...output]);
 // type of 'output' is readonly number[]
 ```
 
-#### `filter`
+#### `filterWithGuard`
 
 Filters the input iterable using predicate function provided by `predicate` parameter.
 
+Works exactly the same way as filter, but expect a guard function as a predicate, and will narrow the type of the resulting iterable.
+
 ```ts
-const input = [1, 2, 3, 4, 5, 6];
+const input: readonly (number | string)[] = [1, 'v1', 2, 'v2', 3, 'v3', 4, 'v4', 5, 'v5', 6, 'v6'];
 const output = applyFn(
   input,
-  filter((v: number) => v % 2 === 0),
+  filterWithGuard((item): item is number => typeof item === 'number' && item % 2 === 0),
 );
 console.log([...output]);
 // [2, 4, 6]
+// type of 'output' is readonly number[]
+```
+
+Naturally, for readability, you can extract the predicate function to a variable or use a function declaration. Here is an example with predicate being stored in a variable:
+
+```ts
+const input: readonly (number | string)[] = [1, 'v1', 2, 'v2', 3, 'v3', 4, 'v4', 5, 'v5', 6, 'v6'];
+
+const predicate = (item: number | string): item is number => typeof item === 'number' && item % 2 === 0;
+
+const output = applyFn(input, filterWithGuard(predicate));
+console.log([...output]);
+// [2, 4, 6]
+// type of 'output' is readonly number[]
 ```
 
 #### `first`
