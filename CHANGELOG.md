@@ -4,6 +4,12 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.10] - 2024-01-16
+
+### Added
+
+- Add `crossWith` transformer.
+
 ## [0.0.9] - 2024-01-16
 
 ### Changed

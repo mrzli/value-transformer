@@ -197,6 +197,84 @@ console.log(output);
 2;
 ```
 
+#### `crossWith`
+
+Creates a cross product (or a [cartesian product](https://en.wikipedia.org/wiki/Cartesian_product)) of the input iterable and one or more iterables passed to `crossWith` transformer.
+
+The result is iterable of tuples, where tuple will have one element more than the number of iterables passed to `crossWith` transformer.
+
+The first element of the tuple will be an item from the input iterable, and the rest of the elements will be items from the other iterables, in the order they were passed to `crossWith` transformer.
+
+When building the result, the `crossWith` transformer will first try to exhaust the rightmost iterable passed to it, then the next one to the left, and so on, until it exhausts the input iterable.
+
+```ts
+const input = [1, 2];
+const output = applyFn(input, crossWith(['a', 'b']));
+console.log([...output]);
+// [
+//   [1, 'a'],
+//   [1, 'b'],
+//   [2, 'a'],
+//   [2, 'b'],
+// ]
+```
+
+```ts
+const input = [1, 2];
+const output = applyFn(input, zipWith(['a', 'b'], [true, false]));
+console.log([...output]);
+// [
+//   [1, 'a', true],
+//   [1, 'a', false],
+//   [1, 'b', true],
+//   [1, 'b', false],
+//   [2, 'a', true],
+//   [2, 'a', false],
+//   [2, 'b', true],
+//   [2, 'b', false],
+// ]
+```
+
+If any iterable is empty, the resulting iterable will also be empty.
+
+```ts
+const input = [1, 2];
+const output = applyFn(input, crossWith([]));
+console.log([...output]);
+// []
+```
+
+```ts
+const input = [];
+const output = applyFn(input, crossWith(['a', 'b']));
+console.log([...output]);
+// []
+```
+
+It is possible to pass in one or more infinite iterables into any position of the `crossWith` transformer, or have the input iterable be infinite. The resulting iterable would also be infinite, and can be later limited using for example `take` transformer.
+
+Any iterable left of the rightmost infinite iterable will only ever use its first element since the infinite iterable will never be exhausted.
+
+```ts
+const infinite = function* (): Generator<number> {
+  let i = 0;
+  while (true) {
+    yield i++;
+  }
+};
+
+const input = [1, 2, 3];
+const output = applyFn(input, crossWith(infinite(), ['a', 'b']), take(5));
+console.log([...output]);
+// [
+//   [1, 0, 'a'],
+//   [1, 0, 'b'],
+//   [1, 1, 'a'],
+//   [1, 1, 'b'],
+//   [1, 2, 'a'],
+// ]
+```
+
 #### `distinct`
 
 Filters out duplicate values from the input iterable.

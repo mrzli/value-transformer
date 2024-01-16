@@ -76,7 +76,7 @@ export function zipWith<T>(
 
       const values = items.map((item) => item.value);
 
-      yield [...values];
+      yield values;
     }
   };
 }
