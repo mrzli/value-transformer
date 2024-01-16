@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { skip } from './skip';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('skip', () => {
   describe('skip()', () => {

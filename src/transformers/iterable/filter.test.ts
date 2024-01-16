@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { Fn1 } from '@gmjs/generic-types';
 import { filter } from './filter';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('filter', () => {
   describe('filter()', () => {

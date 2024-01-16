@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { zipWith } from './zip-with';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('zip-with', () => {
   describe('zipWith()', () => {

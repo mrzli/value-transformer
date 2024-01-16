@@ -1,6 +1,6 @@
 import { Fn1 } from '@gmjs/generic-types';
 import { expect, it } from '@jest/globals';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../../_test';
 
 export interface MathExampleItem {
   readonly value: number;

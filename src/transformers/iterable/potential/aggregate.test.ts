@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { aggregate } from './aggregate';
-import { getArrayResult } from '../../test-util';
+import { getArrayResult } from '../../_test';
 
 describe('aggregate', () => {
   describe('aggregate()', () => {

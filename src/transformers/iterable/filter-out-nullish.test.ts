@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import { describe, expect, it } from '@jest/globals';
 import { filterOutNullish } from './filter-out-nullish';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('filter-out-nullish', () => {
   describe('filterOutNullish()', () => {

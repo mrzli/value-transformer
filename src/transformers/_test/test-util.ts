@@ -1,6 +1,6 @@
 import { Fn1 } from '@gmjs/generic-types';
 import { compose } from '@gmjs/compose-function';
-import { toArray } from './iterable/to-array';
+import { toArray } from '../iterable/to-array';
 
 export function getArrayResult<T, U>(
   input: T,

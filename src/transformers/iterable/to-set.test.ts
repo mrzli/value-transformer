@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { toSet } from './to-set';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('to-set', () => {
   describe('toSet()', () => {

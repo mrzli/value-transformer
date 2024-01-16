@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { sort } from './sort';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('sort', () => {
   describe('sort()', () => {

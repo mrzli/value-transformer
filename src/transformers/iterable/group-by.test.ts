@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { groupBy } from './group-by';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('group-by', () => {
   describe('groupBy()', () => {

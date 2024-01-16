@@ -23,7 +23,7 @@ import {
   MathExampleCum,
   testCumExamples,
   toObjectExamplesCum,
-} from './test-util-math';
+} from './_test';
 
 describe('math', () => {
   describe('sum()', () => {

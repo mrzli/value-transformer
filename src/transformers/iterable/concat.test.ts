@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { concat } from './concat';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('concat', () => {
   describe('concat()', () => {

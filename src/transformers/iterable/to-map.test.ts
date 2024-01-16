@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { toMap } from './to-map';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('to-map', () => {
   describe('toMap()', () => {

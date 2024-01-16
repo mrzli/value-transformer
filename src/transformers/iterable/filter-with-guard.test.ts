@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { filterWithGuard } from './filter-with-guard';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('filter-with-guard', () => {
   describe('filterWithGuard()', () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { distinct } from './distinct';
-import { getArrayResult } from '../test-util';
+import { getArrayResult } from '../_test';
 
 describe('distinct', () => {
   describe('distinct()', () => {
