@@ -1,6 +1,6 @@
 {
   "name": "@gmjs/value-transformers",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Value transformers.",
   "author": {
     "name": "Goran Mržljak",
