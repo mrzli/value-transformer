@@ -4,6 +4,12 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.8] - 2024-01-16
+
+### Changed
+
+- Update tsconfig `lib` to `ES2023`.
+
 ## [0.0.7] - 2023-12-28
 
 ### Added
