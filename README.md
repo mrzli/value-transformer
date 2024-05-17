@@ -2,9 +2,9 @@
 
 This project implements value transformers, or more precisely, value transformer creators.
 
-Value transformer is simply a function of one parameter (input), returning a value (output).
+A value transformer is simply a function that takes one parameter (input) and returns a value (output).
 
-A value transformer creator is a function returning a value transformer. It can have zero, one or more parameters which can be used to define the resulting value transformer behavior.
+A value transformer creator is a function that returns a value transformer. It can have zero, one or more parameters which can be used to define the resulting value transformer behavior.
 
 For example, we can think of the following function as a value transformer:
 
@@ -24,9 +24,9 @@ function addN(n: number): (v: number) => number {
 
 Value transformers can be - and often are - generator functions, which for example allow us to transform infinite sequences of values.
 
-Each function callable in this project is actually transformer creator, meaning a function returning a value transformer.
+Each callable function in this project is actually a transformer creator, which means it's a function that returns a value transformer.
 
-These transformer creators are very similar to Observable operators. They are more straighforward to use - they just transform simple values (including infinite sequences), but they are not as powerful as Observables. You cannot use these transformers to handle asynchronous values or event streams.
+These transformer creators are very similar to Observable operators. They are more straightforward to use because they simply transform simple values (including infinite sequences), but they are not as powerful as Observables. You cannot use these transformers to handle asynchronous values or event streams.
 
 ## Installation
 
@@ -100,7 +100,7 @@ console.log([...output]);
 // [3, 4, 5]
 ```
 
-You may often want to use transformer with the `applyFn`, because it feels more natural, as if the input value flows through the transformer pipe:
+You may often want to use a transformer with the applyFn because it feels more natural, as if the input value is flowing through the transformer pipe:
 
 ```ts
 import { applyFn } from '@gmjs/apply-function';
@@ -161,7 +161,7 @@ console.log([...output]);
 - [tapPerItem](#tapPerItem) - Runs an action for each item of the input iterable.
 - [toArray](#toArray) - Spreads the input iterable into an array.
 - [toMap](#toMap) - Converts an iterable of key-value tuples into a `Map`.
-- [toMapBy](#toMapBy) - Converts an iterable to a map, where `keySelector` function to determine the key of each item.
+- [toMapBy](#toMapBy) - Converts an iterable to a map, where `keySelector` function is used to determine the key of each item.
 - [toSet](#toSet) - Converts an iterable into a `Set`.
 - [values](#values) - Returns values of iterable items (items need to be key-value tuples).
 - [zipWith](#zipWith) - Zips the input iterable with one or more other iterables.
@@ -786,7 +786,7 @@ console.log(output);
 
 #### `toMapBy`
 
-Converts an iterable to a map, where `keySelector` function to determine the key of each item, and the item itself is the value.
+Converts an iterable to a map, where `keySelector` function is used to determine the key of each item, and the item itself is the value.
 
 Similar to `groupBy` transformer, but the resulting map will contain only one item per key, not an array of items.
 
