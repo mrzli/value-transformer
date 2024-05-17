@@ -134,6 +134,59 @@ console.log([...output]);
 // [4, 6]
 ```
 
+## API Listing
+
+### Iterable
+
+- [concat](#concat) - Concatenates multiple iterables into one.
+- [count](#count) - Counts the number of items in the input iterable. Optionally, accepts a predicate.
+- [crossWith](#crossWith) - Creates a cross product of the input iterable and one or more other iterables.
+- [distinct](#distinct) - Filters out duplicate values from the input iterable.
+- [duplicates](#duplicates) - Returns just the duplicate values from the input iterable.
+- [filter](#filter) - Filters the input iterable using predicate function.
+- [filterOutNullish](#filterOutNullish) - Filters out nullish values from the input iterable.
+- [filterWithGuard](#filterWithGuard) - Filters the input iterable using predicate function (will narrow the type of the resulting iterable).
+- [first](#first) - Gets the first item of the input iterable.
+- [flatMap](#flatMap) - Maps each value of the input iterable using mapper function, and then flattens the result.
+- [flatten](#flatten) - Flattens the input iterable.
+- [groupBy](#groupBy) - Groups the input iterable into a map.
+- [indexes](#indexes) - Returns just the indexes of the input iterable.
+- [keys](#keys) - Returns keys of iterable items (items need to be key-value tuples).
+- [last](#last) - Gets the last item of the input iterable.
+- [map](#map) - A simple mapping function.
+- [reverse](#reverse) - Reverses the input iterable.
+- [skip](#skip) - Skips the N values from the input iterable.
+- [sort](#sort) - Sorts the input iterable using comparator function.
+- [take](#take) - Takes first N values from the input iterable.
+- [tapPerItem](#tapPerItem) - Runs an action for each item of the input iterable.
+- [toArray](#toArray) - Spreads the input iterable into an array.
+- [toMap](#toMap) - Converts an iterable of key-value tuples into a `Map`.
+- [toMapBy](#toMapBy) - Converts an iterable to a map, where `keySelector` function to determine the key of each item.
+- [toSet](#toSet) - Converts an iterable into a `Set`.
+- [values](#values) - Returns values of iterable items (items need to be key-value tuples).
+- [zipWith](#zipWith) - Zips the input iterable with one or more other iterables.
+
+### Single
+
+- [tap](#tap) - Executes an action for the input value, then forwards the input value unchanged.
+
+### Math
+
+- [sum](#sum) - Calculates the sum of all items of the numeric input iterable.
+- [sumBy](#sumBy) - Calculates the sum of all items of the input iterable, using the function specified by a selector function.
+- [cumSum](#cumSum) - Calculates the cumulative sum list of all items of the numeric input iterable.
+- [cumSumBy](#cumSumBy) - Calculates the cumulative sum list of all items of the input iterable, using the function specified by a selector function.
+- [min](#min) - Calculates the minimum value of all items of the numeric input iterable.
+- [minBy](#minBy) - Calculates the minimum value of all items of the input iterable, using the function specified by a selector function.
+- [cumMin](#cumMin) - Calculates the cumulative minimum list of all items of the numeric input iterable.
+- [cumMinBy](#cumMinBy) - Calculates the cumulative minimum list of all items of the input iterable, using the function specified by a selector function.
+- [max](#max) - Calculates the maximum value of all items of the numeric input iterable.
+- [maxBy](#maxBy) - Calculates the maximum value of all items of the input iterable, using the function specified by a selector function.
+- [cumMax](#cumMax) - Calculates the cumulative maximum list of all items of the numeric input iterable.
+- [cumMaxBy](#cumMaxBy) - Calculates the cumulative maximum list of all items of the input iterable, using the function specified by a selector function.
+- [mean](#mean) - Calculates the mean value of all items of the numeric input iterable.
+- [meanBy](#meanBy) - Calculates the mean value of all items of the input iterable, using the function specified by a selector function.
+
 ## API
 
 I will use the expressions 'transformer creator' and 'transformer' interchangeably. The former is more precise, but the latter is shorter and more convenient. Most (or all) of API functions are actually transformer creators.
@@ -529,7 +582,7 @@ console.log([...output]);
 
 #### `groupBy`
 
-Groups the input iterable items into map entries, using the `keySelector` function to determine the key of each item. Under each key, items are collected into an array.
+Groups the input iterable into a map. Items are grouped by key using the `keySelector` function. Under each key, items are collected into an array.
 
 ```ts
 const input = [
