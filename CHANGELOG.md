@@ -4,6 +4,13 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.12] - 2024-05-17
+
+### Changed
+
+- Update dependencies to latest versions.
+- Update configurations to match dependency changes.
+
 ## [0.0.11] - 2024-01-16
 
 ### Fixed
