@@ -1,4 +1,4 @@
-# Value transformers
+# Value Transformers
 
 This project implements value transformers, or more precisely, value transformer creators.
 
