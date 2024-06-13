@@ -4,6 +4,12 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.15] - 2024-06-02
+
+### Changed
+
+- Republish. No changes to the code.
+
 ## [0.0.14] - 2024-05-17
 
 ### Changed
