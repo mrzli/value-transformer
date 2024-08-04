@@ -4,6 +4,18 @@ All notable changes to the "value-transformers" will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.16] - 2024-08-04
+
+### Changed
+
+- Update to '@gmjs/pnpm-publish-cli' for publishing.
+- Update npm scripts.
+- Update dependencies to latest versions.
+
+### Added
+
+- Add `toObject` and `toObjectBy` transformers.
+
 ## [0.0.15] - 2024-06-02
 
 ### Changed
