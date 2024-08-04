@@ -162,6 +162,8 @@ console.log([...output]);
 - [toArray](#toArray) - Spreads the input iterable into an array.
 - [toMap](#toMap) - Converts an iterable of key-value tuples into a `Map`.
 - [toMapBy](#toMapBy) - Converts an iterable to a map, where `keySelector` function is used to determine the key of each item.
+- [toObject](#toObject) - Converts an iterable of key-value tuples into an object.
+- [toObjectBy](#toObjectBy) - Converts an iterable to an object, where `keySelector` function is used to determine the key of each item.
 - [toSet](#toSet) - Converts an iterable into a `Set`.
 - [values](#values) - Returns values of iterable items (items need to be key-value tuples).
 - [zipWith](#zipWith) - Zips the input iterable with one or more other iterables.
@@ -809,6 +811,49 @@ console.log(output);
 //   1, { id: 1, name: 'Jack' },
 //   2, { id: 2, name: 'Joe' },
 //   3, { id: 3, name: 'Jill' }
+// }
+```
+
+#### `toObject`
+
+Converts an iterable of key-value tuples into an object. Similar to `toMap` transformer, except it produces an object instead of a `Map`.
+
+```ts
+const input = [
+  ['a', 1],
+  ['b', 2],
+  ['c', 3],
+];
+const output = applyFn(input, toObject());
+console.log(output);
+// {
+//   a: 1,
+//   b: 2,
+//   c: 3
+// }
+```
+
+#### `toObjectBy`
+
+Converts an iterable to an object, where `keySelector` function is used to determine the key of each item, and the item itself is the value. Similar to `toMapBy` transformer, except it produces an object instead of a `Map`.
+
+```ts
+const input = [
+  { key: 'k1', name: 'John' },
+  { key: 'k2', name: 'Jane' },
+  { key: 'k1', name: 'Jack' },
+  { key: 'k3', name: 'Jill' },
+  { key: 'k2', name: 'Joe' },
+];
+const output = applyFn(
+  input,
+  toObjectBy((v) => v.key),
+);
+console.log(output);
+// {
+//   k1: { id: 1, name: 'Jack' },
+//   k2: { id: 2, name: 'Joe' },
+//   k3: { id: 3, name: 'Jill' }
 // }
 ```
 

@@ -23,6 +23,8 @@ export * from './tap-per-item';
 export * from './to-array';
 export * from './to-map';
 export * from './to-map-by';
+export * from './to-object';
+export * from './to-object-by';
 export * from './to-set';
 export * from './values';
 export * from './zip-with';
